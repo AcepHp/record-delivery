@@ -43,8 +43,7 @@
                         <td>{{ $totalQtyValueRcrd }}</td> 
                         <td class="{{ $totalQtyValue != $totalQtyValueRcrd ? 'text-danger' : 'text-success' }}">
                             {{ $totalQtyValue }}
-                        </td>
-                        <td colspan="8"></td>                     
+                        </td>                    
                     </tr>
                 </tbody>
             </table>

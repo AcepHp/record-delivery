@@ -63,8 +63,7 @@
                                                             <p></p>
                                                         @endif
                                                     </td>
-                                                    <td>{{ session('qty_receh') }}</td> 
-                                                    <td colspan="8"></td>                     
+                                                    <td>{{ session('qty_receh') }}</td>                   
                                                 </tr>
                                             </tbody>
                                         </table>
