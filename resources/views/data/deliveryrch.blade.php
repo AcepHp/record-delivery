@@ -18,7 +18,7 @@
                             @csrf
                             <input type="hidden" name="no_transaksi" value="{{ $noTransaksi }}">
                             <div class="mb-3">
-                                <label for="qrcode" class="form-label">Scan Data:</label>
+                                <label for="qrcode" class="form-label">Scan Data: <span class="text-muted" style="font-size: 0.9em;">(Press Enter to submit)</span></label>
                                 <input type="text" class="form-control @error('qrcode') is-invalid @enderror" id="qrcode" name="qrcode" required autofocus>
                                 @error('qrcode')
                                     <div class="invalid-feedback">{{ $message }}</div>
