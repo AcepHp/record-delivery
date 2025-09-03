@@ -41,19 +41,19 @@
                         <div class="navbar-brand-box">
                             <a href="index.html" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="/B/assets/images/AVI.png" alt="" height="30">
+                                    <img src="/B/assets/images/logo-avp.png" alt="" height="30">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="/B/assets/images/AVI.png" alt="" height="24"> <span class="logo-txt">Astra Visteon Indonesia</span>
+                                    <img src="/B/assets/images/logo-avp.png" alt="" height="24"> <span class="logo-txt">Astra Visteon Indonesia</span>
                                 </span>
                             </a>
 
                             <a href="index.html" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="/B/assets/images/AVI.png" alt="" height="10">
+                                    <img src="/B/assets/images/logo-avp.png" alt="" height="10">
                                 </span>
                                 <span class="logo-lg">
-                                <img src="/B/assets/images/AVI.png" alt="" height="50"> <span class="logo-txt"></span>
+                                <img src="/B/assets/images/logo-avp.png" alt="" height="50"> <span class="logo-txt"></span>
                                 </span>
                             </a>
                         </div>

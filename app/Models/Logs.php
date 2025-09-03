@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Delivery extends Model
+class Logs extends Model
 {
-    use HasFactory;
-
-    protected $table = 'delivery';
+    protected $table = 'logserror';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'no_transaksi', 
-        'tgl_bln_thn', 
-        'part_number',
-        'lot_number', 
-        'qty',
-        'flag'
+        'no_transaksi',
+        'tgl_bln_thn',
+        'note',
     ];
 
     public $timestamps = false; 

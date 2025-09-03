@@ -19,7 +19,7 @@
 
     <style>
         body {
-            background: url('{{ asset('B/assets/images/produksi1.jpg') }}') no-repeat center center fixed;
+            background: url('{{ asset('B/assets/images/1633.jpg') }}') no-repeat center center fixed;
             background-size: cover;
             color: #fff; 
         }
@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-body p-4">
                         <div class="login-logo text-center mb-4">
-                            <img src="{{ asset('B/assets/images/AVI.png') }}" alt="AVI Logo" class="img-fluid" style="max-width: 50%;">
+                            <img src="{{ asset('B/assets/images/logo-avp.png') }}" alt="AVI Logo" class="img-fluid" style="max-width: 50%;">
                         </div>
                         <div class="p-2 mt-4">
                             @if ($errors->any())
