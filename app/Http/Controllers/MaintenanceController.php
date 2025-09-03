@@ -28,7 +28,7 @@ class MaintenanceController extends Controller
 
         // cek password
         if ($request->password !== env('BACKUP_RESTORE_PASSWORD')) {
-            return redirect()->back()->with('error', 'Password salah!');
+            return redirect()->back()->with('error', 'Incorrect Password!');
         }
 
         $start = $request->start_date;
@@ -75,7 +75,7 @@ class MaintenanceController extends Controller
                 });
         });
 
-        return redirect()->back()->with('success', 'Backup berhasil dari '.$start.' sampai '.$end);
+        return redirect()->back()->with('success', 'Backup completed from '.$start.' to '.$end);
     }
 
     public function restoreData(Request $request)
@@ -89,7 +89,7 @@ class MaintenanceController extends Controller
 
         // cek password
         if ($request->password !== env('BACKUP_RESTORE_PASSWORD')) {
-            return redirect()->back()->with('error', 'Password salah!');
+            return redirect()->back()->with('error', 'Incorrect Password!');
         }
 
         $start = $request->start_date;
@@ -135,6 +135,6 @@ class MaintenanceController extends Controller
                 });
         });
 
-        return redirect()->back()->with('success', 'Restore berhasil dari '.$start.' sampai '.$end);
+        return redirect()->back()->with('success', 'Restore completed from '.$start.' to '.$end);
     }
 }

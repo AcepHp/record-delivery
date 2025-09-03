@@ -68,7 +68,7 @@
 
                                 <div class="mt-4 text-center">
                                     <a href="{{ route('login') }}" class="text-muted">
-                                        <i class="mdi mdi-login me-1"></i> Sudah memiliki akun?
+                                        <i class="mdi mdi-login me-1"></i> Already have an account?
                                     </a>
                                 </div>
                             </form>

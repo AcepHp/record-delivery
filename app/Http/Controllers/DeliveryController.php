@@ -44,7 +44,7 @@ class DeliveryController extends Controller
         try {
             $noTransaksi = $request->input('no_transaksi');
             if (!$noTransaksi) {
-                return response()->json(['success' => false, 'message' => 'No transaksi tidak ditemukan atau tidak valid!'], 400);
+                return response()->json(['success' => false, 'message' => 'Transaction number not found or invalid!'], 400);
             }
 
             $totalQtyRcrd = Record::where('no_transaksi', $noTransaksi)->first();
@@ -56,25 +56,25 @@ class DeliveryController extends Controller
             $inputQty = $request->input('qty');
     
             if ($totalQtyValue == $totalQtyValueRcrd) {
-                return response()->json(['success' => false, 'message' => 'Tidak dapat menginput data melebihi quantity.'], 400);
+                return response()->json(['success' => false, 'message' => 'Cannot input data exceeding the allowed quantity.'], 400);
             }
 
             if (($totalQtyValue + $inputQty) > $totalQtyValueRcrd) {
-                return response()->json(['success' => false, 'message' => 'Quantity tidak dapat melebihi quantity record'], 400);
+                return response()->json(['success' => false, 'message' => 'Quantity cannot exceed the recorded quantity.'], 400);
             }
     
             $qrData = $request->input('qrcode');
             $dataArray = explode('|', $qrData);
     
             if (count($dataArray) < 4) {
-                return response()->json(['success' => false, 'message' => 'Format data salah!'], 400);
+                return response()->json(['success' => false, 'message' => 'Invalid data format!'], 400);
             }
 
             $partNumbersInSession = session('part_numbers',[]);
             $scannedPartNumbers = $dataArray[0];
 
             if (!in_array($scannedPartNumbers,$partNumbersInSession)){
-                return response()->json(['success' => false, 'message' => 'Part Number tidak sesuai'], 400);
+                return response()->json(['success' => false, 'message' => 'Part number does not match.'], 400);
             }
     
             $validatedData = [
@@ -108,7 +108,7 @@ class DeliveryController extends Controller
                 ->exists();
     
             if ($isDuplicate||$isDuplicateRch) {
-                return response()->json(['success' => false, 'message' => 'Data sudah ada dalam database'], 409);
+                return response()->json(['success' => false, 'message' => 'Data already exists in the database.'], 409);
             }
     
             if ($record->save()) {
@@ -131,9 +131,9 @@ class DeliveryController extends Controller
                     ]);
                 }
                 
-                return response()->json(['success' => true, 'message' => 'Data berhasil disimpan','total_qty' => $totalQty]);
+                return response()->json(['success' => true, 'message' => 'Data saved successfully','total_qty' => $totalQty]);
             } else {
-                return response()->json(['success' => false, 'message' => 'Data gagal disimpan'], 500);
+                return response()->json(['success' => false, 'message' => 'Failed to save data.'], 500);
             }
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
@@ -240,7 +240,7 @@ class DeliveryController extends Controller
             if ($recordData->isEmpty() && $deliveryData->isEmpty()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Tidak ada data dalam Tabel Record dan Delivery.',
+                    'message' => 'No data found in Record and Delivery tables.',
                     'recordData' => [],
                     'deliveryData' => []
                 ]);
@@ -258,10 +258,10 @@ class DeliveryController extends Controller
 
                 M_Qty::where('no_transaksi', $noTransaksi)->update(['flag' => 0]);
 
-                $message = 'Data cocok, berhasil mengupdate data.';
+                $message = 'Data matched, records updated successfully.';
                 $status = true;
             } else {
-                $message = 'Data tidak cocok, gagal mengupdate data.';
+                $message = 'Data mismatch, failed to update records.';
             }
 
             return response()->json([
@@ -307,7 +307,7 @@ class DeliveryController extends Controller
         if ($password === 'Ce9vM3Ln4IYR') {
             return response()->json(['success' => true]);
         }
-        return response()->json(['success' => false, 'message' => 'Password salah.'], 403);
+        return response()->json(['success' => false, 'message' => 'Incorrect password.'], 403);
     }
 
     public function getTotalQtyStatus($noTransaksi)

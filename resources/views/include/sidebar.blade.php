@@ -16,12 +16,12 @@
                 </a>
             </li>
 
-            <li class="menu-title" data-key="t-apps">Apps</li>
+            <li class="menu-title" data-key="t-apps">Applications</li>
 
             <li>
                 <a href="javascript: void(0);" class="has-arrow">
                     <i data-feather="edit"></i>
-                    <span data-key="t-ecommerce">Proses Input</span>
+                    <span data-key="t-ecommerce">Input Process</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="{{ route('record.create') }}" data-key="t-product-detail">New Scan</a></li>

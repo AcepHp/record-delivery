@@ -8,7 +8,7 @@
                         <img src="/B/assets/images/logo-avp.png" alt="" height="30">
                     </span>
                     <span class="logo-lg">
-                        <img src="/B/assets/images/logo-avp.png" alt="" height="24"> <span class="logo-txt">Astra Visteon Indonesia</span>
+                        <img src="/B/assets/images/logo-avp.png" alt="" height="24"> <span class="logo-txt">Astra Visteon Philippines</span>
                     </span>
                 </a>
 

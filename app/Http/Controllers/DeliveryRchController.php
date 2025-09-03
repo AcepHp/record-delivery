@@ -73,20 +73,20 @@ class DeliveryRchController extends Controller
             $pic = session('pic');
 
             if (Delivery::where('lot_number', $lotNumber)->exists()) {
-                return response()->json(['success' => false, 'message' => 'Lot number sudah ada dalam database.'], 400);
+                return response()->json(['success' => false, 'message' => 'Lot number already exists in the database.'], 400);
             }
 
             $qrData = $request->input('qrcode');
             $dataArray = explode('|', $qrData);
                 if (count($dataArray) < 4) {
-                    return response()->json(['success' => false, 'message' => 'Format data salah!'], 400);
+                    return response()->json(['success' => false, 'message' => 'Invalid data format!'], 400);
                 }
 
             $partNumbersInSession = session('part_numbers', []);
             $scannedPartNumbers = $dataArray[0];
 
                 if (!in_array($scannedPartNumbers, $partNumbersInSession)) {
-                    return response()->json(['success' => false, 'message' => 'Part Number tidak sesuai'], 400);
+                    return response()->json(['success' => false, 'message' => 'Part number does not match.'], 400);
                 }
 
             $recordSmpn = RecordSmpn::where('lot_number', $lotNumber)
@@ -97,7 +97,7 @@ class DeliveryRchController extends Controller
                 if ($recordSmpn->qty < $qtyReceh) {
                     return response()->json([
                         'success' => false,
-                        'message' => "Quantity dalam database lebih kecil dibanding quantity receh"
+                        'message' => "Quantity in the database is smaller than partial quantity."
                     ], 400);
                 }
 
@@ -106,18 +106,18 @@ class DeliveryRchController extends Controller
                         'tgl_bln_thn' => now(),
                         'pic' => $pic,
                     ]);
-                    return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui.']);
+                    return response()->json(['success' => true, 'message' => 'Data updated successfully.']);
                 } else {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Quantity tidak boleh lebih kecil dari quantity receh'
+                        'message' => 'Quantity cannot be smaller than partial quantity.'
                     ], 400);
                 }
             } else {
                 if ($qty < $qtyReceh) {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Quantity tidak boleh lebih kecil dari quantity receh'
+                        'message' => 'Quantity cannot be smaller than partial quantity.'
                     ], 400);
                 }
 
@@ -132,7 +132,7 @@ class DeliveryRchController extends Controller
 
                 $newRecord = new RecordSmpn($validatedData);
                 if (!$newRecord->save()) {
-                    return response()->json(['success' => false, 'message' => 'Gagal menyimpan data'], 500);
+                    return response()->json(['success' => false, 'message' => 'Failed to save data.'], 500);
                 }
             }
 
@@ -148,7 +148,7 @@ class DeliveryRchController extends Controller
                 $transaksi->update(['lot_number' => $newLotNumbers]);
             }
 
-            return response()->json(['success' => true, 'message' => 'Data berhasil disimpan.']);
+            return response()->json(['success' => true, 'message' => 'Data saved successfully.']);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
@@ -158,7 +158,7 @@ class DeliveryRchController extends Controller
     {
         $noTransaksi = $request->input('no_transaksi');
         if (!$noTransaksi) {
-            return response()->json(['success' => false, 'message' => 'No transaksi tidak ditemukan atau tidak valid!'], 400);
+            return response()->json(['success' => false, 'message' => 'Transaction number not found or invalid!'], 400);
         }
 
         $totalQtyRcrd = RecordRch::where('no_transaksi', $noTransaksi)->first();
@@ -168,7 +168,7 @@ class DeliveryRchController extends Controller
         $totalQtyValue = $totalQty ? $totalQty->total_qty : 0;
 
         if ($totalQtyValue == $totalQtyValueRcrd) {
-            return response()->json(['success' => false, 'message' => 'Tidak dapat menginput data melebihi quantity.'], 400);
+            return response()->json(['success' => false, 'message' => 'Cannot insert data exceeding quantity.'], 400);
         }
 
         $model = session('model');
@@ -182,7 +182,7 @@ class DeliveryRchController extends Controller
 
         $existingDelivery = DeliveryRch::where('serial_number', $qrcode)->first();
         if ($existingDelivery) {
-            return response()->json(['success' => false, 'message' => 'Serial number sudah ada dalam database'], 400);
+            return response()->json(['success' => false, 'message' => 'Serial number already exists in the database.'], 400);
         }
 
         $tglBlnThn = now()->toDateString();
@@ -224,12 +224,12 @@ class DeliveryRchController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data berhasil disimpan!'
+                'message' => 'Data saved successfully!'
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Serial number tidak sesuai'
+                'message' => 'Serial number does not match.'
             ]);
         }
     }
@@ -337,7 +337,7 @@ class DeliveryRchController extends Controller
             if ($recordData->isEmpty() && $deliveryData->isEmpty()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Tidak ada data dalam Tabel Record dan Delivery.',
+                    'message' => 'No data found in Record and Delivery tables.',
                     'recordData' => [],
                     'deliveryData' => []
                 ]);
@@ -361,10 +361,10 @@ class DeliveryRchController extends Controller
                 
                 $this->reduceQtyBasedOnLotNumber($recordSmpn, $deliveryData, $noTransaksi);
 
-                $message = 'Data cocok, berhasil mengupdate data.';
+                $message = 'Data matched, successfully updated.';
                 $status = true;
             } else {
-                $message = 'Data tidak cocok, gagal mengupdate data.';
+                $message = 'Data did not match, update failed.';
             }
 
             return response()->json([
@@ -376,7 +376,7 @@ class DeliveryRchController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+                'message' => 'An error occurred: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -425,7 +425,7 @@ class DeliveryRchController extends Controller
         if ($password === 'Ce9vM3Ln4IYR') {
             return response()->json(['success' => true]);
         }
-        return response()->json(['success' => false, 'message' => 'Password salah.'], 403);
+        return response()->json(['success' => false, 'message' => 'Incorrect password.'], 403);
     }
 
     public function getTotalQtyStatus($noTransaksi)

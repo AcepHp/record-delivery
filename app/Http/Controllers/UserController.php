@@ -34,9 +34,9 @@ class UserController extends Controller
                 'roles' => $request->roles,
             ]);
     
-            return redirect()->route('users.index')->with('success', 'Data berhasil diubah');
+            return redirect()->route('users.index')->with('success', 'User updated successfully');
         } catch (\Exception $e) {
-            return redirect()->route('users.index')->with('error', 'Gagal mengubah data. Silahkan coba lagi.');
+            return redirect()->route('users.index')->with('error', 'Failed to update user. Please try again.');
         }
     }    
 
@@ -57,9 +57,9 @@ class UserController extends Controller
                 'roles' => $request->roles,
             ]);
     
-            return redirect()->route('users.index')->with('success', 'Register berhasil');
+            return redirect()->route('users.index')->with('success', 'User registered successfully');
         } catch (\Exception $e) {
-            return redirect()->route('users.index')->with('error', 'Gagal register data. Silahkan coba lagi.');
+            return redirect()->route('users.index')->with('error', 'Failed to register user. Please try again.');
         }
     }    
 
@@ -69,9 +69,9 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             $user->delete();
 
-            return redirect()->route('users.index')->with('success', 'Data berhasil dihapus');
+            return redirect()->route('users.index')->with('success', 'User deleted successfully');
         } catch (\Exception $e) {
-            return redirect()->route('users.index')->with('error', 'Gagal menghapus data. Silakan coba lagi.');
+            return redirect()->route('users.index')->with('error', 'Failed to delete user. Please try again.');
         }
     }
 

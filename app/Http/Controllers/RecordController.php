@@ -37,7 +37,7 @@ class RecordController extends Controller
                         ->pluck('tipe_delv');  
         
 
-        $picx = ['Iqbal', 'Nauval', 'Dandi', 'Bayu F', 'Eko', 'Putut'];
+        $picx = ['AVP'];
         
         $todayDate = date('Y-m-d');
 
@@ -98,7 +98,7 @@ class RecordController extends Controller
             if ($validatedData['qty_type'] === 'full') {
                 if (!$request->has('qty') || empty($validatedData['qty'])) {
                     return redirect()->back()
-                        ->withErrors(['qty' => 'Quantity Full harus diisi.'])
+                        ->withErrors(['qty' => 'Full Quantity is required.'])
                         ->withInput();
                 }
         
@@ -134,13 +134,13 @@ class RecordController extends Controller
                     ]);
             
                     return redirect()->route('delivery.create')
-                        ->with('success', 'Data Quantity Full berhasil disimpan.');
+                        ->with('success', 'Full Quantity data has been saved successfully.');
                 }
             }
             elseif ($validatedData['qty_type'] === 'receh') {
                 if (!$request->has('qty_receh') || empty($validatedData['qty_receh'])) {
                     return redirect()->back()
-                        ->withErrors(['qty_receh' => 'Quantity Receh harus diisi.'])
+                        ->withErrors(['qty_receh' => 'Partial Quantity is required.'])
                         ->withInput();
                 }
         
@@ -178,12 +178,12 @@ class RecordController extends Controller
                     ]);
 
                     return redirect()->route('deliveryrch.create')
-                        ->with('success', 'Data Quantity Receh berhasil disimpan.');
+                        ->with('success', 'Partial Quantity data has been saved successfully.');
                 }
             }
         
             return redirect()->back()
-                ->withErrors(['qty_type' => 'Terjadi kesalahan saat menyimpan data.'])
+                ->withErrors(['qty_type' => 'An error occurred while saving the data.'])
                 ->withInput();
         });
     }
