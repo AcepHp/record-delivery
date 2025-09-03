@@ -18,8 +18,8 @@
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="{{ route('dashboardadmin') }}">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="{{ route('dashboardrecehadmin') }}">Dashboard Receh</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dashboardadmin') }}">Full Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dashboardrecehadmin') }}">Partial Dashboard</a></li>
                         <li><a class="dropdown-item" href="{{ route('dashboarderror') }}">Error Logs</a></li>
                     </ul>
                 </div>
@@ -38,19 +38,19 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="d-flex justify-content-between">Transaksi ID <a href="{{ route('export.dashboard') }}" class="btn btn-success">Export Data</a></h1>
+                        <h1 class="d-flex justify-content-between">Transaction ID <a href="{{ route('export.dashboard') }}" class="btn btn-success">Export Data</a></h1>
                         <table id="record-table" class="table table-hover table-bordered table-responsive">
                             <thead class="table-header">
                                 <tr>
-                                    <th>No Transaksi</th>
-                                    <th>Tanggal Preparation</th>
-                                    <th>Tanggal Delivery</th>
+                                    <th>Transaction No</th>
+                                    <th>Preparation Date</th>
+                                    <th>Delivery Date</th>
                                     <th>Model</th>
                                     <th>Part Name</th>
                                     <th>Part Number</th>
-                                    <th>Tipe Delivery</th>
+                                    <th>Delivery Type</th>
                                     <th>Plant Destination</th>
-                                    <th>Qty</th>
+                                    <th>Quantity</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -64,19 +64,19 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                    <h1 class="d-flex justify-content-between">Transaksi Detail ID <a href="{{ route('export.dashboarddtl') }}" class="btn btn-success">Export Data</a></h1>
+                    <h1 class="d-flex justify-content-between">Detail Transaction ID <a href="{{ route('export.dashboarddtl') }}" class="btn btn-success">Export Data</a></h1>
                         <table id="spareparts-table" class="table table-hover table-bordered table-responsive">
                             <thead class="table-header">
                                 <tr>
-                                    <th>No Transaksi</th>
-                                    <th>Tanggal</th>
+                                    <th>Transaction No</th>
+                                    <th>Date</th>
                                     <th>Model</th>
                                     <th>Part Name</th>
                                     <th>Part Number</th>
                                     <th>Lot Number</th>
-                                    <th>Tipe Delivery</th>
+                                    <th>Delivery Type</th>
                                     <th>Plant Destination</th>
-                                    <th>Qty</th>
+                                    <th>Quantity</th>
                                 </tr>
                             </thead>
                         </table>
@@ -147,13 +147,13 @@
                    data: 'status', 
                    name: 'status',
                    render: function(data, type, row) {
-                       if (data === 'Proses') {
-                           return '<span style="color: red; font-weight: bold;">' + data + '</span>';
-                       } else if (data === 'Berhasil') {
-                           return '<span style="color: green; font-weight: bold;">' + data + '</span>';
-                       }
-                       return data;
-                   }
+                        if (data === 'Proses') {
+                            return '<span style="color: red; font-weight: bold;">In Progress</span>';
+                        } else if (data === 'Berhasil') {
+                            return '<span style="color: green; font-weight: bold;">Completed</span>';
+                        }
+                        return data;
+                    }
                }
            ],
            paging: true,

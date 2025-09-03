@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
         }
     
         throw ValidationException::withMessages([
-            'name' => 'Username atau Password salah tolong login kembali',
+            'name' => 'Username or Password incorrect',
         ]);
     }
     

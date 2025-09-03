@@ -18,8 +18,8 @@
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="{{ route('dashboardadmin') }}">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="{{ route('dashboardrecehadmin') }}">Dashboard Receh</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dashboardadmin') }}">Full Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dashboardrecehadmin') }}">Partial Dashboard</a></li>
                         <li><a class="dropdown-item" href="{{ route('dashboarderror') }}">Error Logs</a></li>
                     </ul>
                 </div>
@@ -38,18 +38,18 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="d-flex justify-content-between">Error Logs <a href="{{ route('export.error') }}" class="btn btn-success">Export Data</a></h1>
+                        <h1 class="d-flex justify-content-between">Full Error Logs <a href="{{ route('export.error') }}" class="btn btn-success">Export Data</a></h1>
                         <table id="error-table" class="table table-hover table-bordered table-responsive">
                             <thead class="table-header">
                                 <tr>
-                                    <th>No Transaksi</th>
-                                    <th>Tanggal</th>
+                                    <th>Transaction Number</th>
+                                    <th>Date</th>
                                     <th>Model</th>
                                     <th>Part Number</th>
                                     <th>Lot Number</th>
-                                    <th>Tipe Delivery</th>
+                                    <th>Delivery Type</th>
                                     <th>Plant Destination</th>
-                                    <th>Keterangan</th>
+                                    <th>Quantity</th>
                                 </tr>
                             </thead>
                         </table>
@@ -62,18 +62,18 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="d-flex justify-content-between">Error Logs Receh <a href="{{ route('export.errorrch') }}" class="btn btn-success">Export Data</a></h1>
+                        <h1 class="d-flex justify-content-between">Partial Error Logs <a href="{{ route('export.errorrch') }}" class="btn btn-success">Export Data</a></h1>
                         <table id="errorrch-table" class="table table-hover table-bordered table-responsive">
                             <thead class="table-header">
                                 <tr>
-                                    <th>No Transaksi</th>
-                                    <th>Tanggal</th>
+                                    <th>Transaction No</th>
+                                    <th>Date</th>
                                     <th>Model</th>
                                     <th>Part Number</th>
+                                    <th>Serial Number</th>
                                     <th>Lot Number</th>
-                                    <th>Tipe Delivery</th>
                                     <th>Plant Destination</th>
-                                    <th>Keterangan</th>
+                                    <th>Quantity</th>
                                 </tr>
                             </thead>
                         </table>

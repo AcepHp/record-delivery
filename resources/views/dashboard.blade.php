@@ -18,8 +18,8 @@
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="{{ route('dashboardreceh') }}">Dashboard Receh</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">Full Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dashboardreceh') }}">Partial Dashboard</a></li>
                     </ul>
                 </div>
 

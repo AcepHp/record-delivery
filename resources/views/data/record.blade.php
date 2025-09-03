@@ -2,14 +2,14 @@
 
 @section('header')
     <h2 class="text-3xl font-semibold text-gray-800">
-        {{ __('Form Input') }}
+        {{ __('Input Form') }}
     </h2>
 @endsection
 
 @section('content')
 <div class="page-content">
     <div class="container-fluid">
-        <h1>Input Record Delivery <button style="margin-left:360px;" type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ route('delivery.create') }}'">Scan Sebelumnya</button> <button style="margin-left:5px;" type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ route('delivery.createreceh') }}'">Scan Receh Sebelumnya</button></h1>  
+        <h1>Input Record Delivery <button style="margin-left:360px;" type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ route('delivery.create') }}'">Previous Scan</button> <button style="margin-left:5px;" type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ route('delivery.createreceh') }}'">Previous Partial Scan</button></h1>  
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -19,7 +19,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="tgl_bln_thn" class="form-label">Tanggal Preparation</label>
+                                            <label for="tgl_bln_thn" class="form-label">Preparation Date</label>
                                             <input 
                                                 type="date" 
                                                 class="form-control @error('tgl_bln_thn') is-invalid @enderror" 
@@ -33,7 +33,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="tgl_bln_thn_dlv" class="form-label">Tanggal Delivery</label>
+                                            <label for="tgl_bln_thn_dlv" class="form-label">Delivery Date</label>
                                             <input type="date" class="form-control @error('tgl_bln_thn_dlv') is-invalid @enderror" id="tgl_bln_thn_dlv" name="tgl_bln_thn_dlv" value="{{ old('tgl_bln_thn_dlv') }}" required>
                                             @error('tgl_bln_thn_dlv')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -67,9 +67,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="tipe_delv" class="form-label">Tipe Delivery</label>
+                                            <label for="tipe_delv" class="form-label">Delivery Type</label>
                                             <select class="form-select @error('tipe_delv') is-invalid @enderror" id="tipe_delv" name="tipe_delv" required>
-                                                <option value="" disabled selected>Select Tipe Delivery</option>
+                                                <option value="" disabled selected>Select Delivery Type</option>
                                                 @foreach($tipe_delvs as $tipe_delv)
                                                     <option value="{{ $tipe_delv }}" {{ old('tipe_delv') == $tipe_delv ? 'selected' : '' }}>
                                                         {{ $tipe_delv }}
@@ -82,11 +82,11 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="qty_type" class="form-label">Pilih Tipe Quantity</label>
+                                            <label for="qty_type" class="form-label">Select Quantity Type</label>
                                             <select class="form-select @error('qty_type') is-invalid @enderror" id="qty_type" name="qty_type" onchange="toggleQtyInput()" required>
-                                                <option value="" disabled selected>Pilih Tipe</option>
+                                                <option value="" disabled selected>Select Type</option>
                                                 <option value="full" {{ old('qty_type') == 'full' ? 'selected' : '' }}>Full</option>
-                                                <option value="receh" {{ old('qty_type') == 'receh' ? 'selected' : '' }}>Receh</option>
+                                                <option value="receh" {{ old('qty_type') == 'receh' ? 'selected' : '' }}>Partial</option>
                                             </select>
                                             @error('qty_type')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -122,7 +122,7 @@
 
                                         <!-- Quantity input for Receh -->
                                         <div class="mb-3" id="recehQuantityGroup" style="display: none;">
-                                            <label for="qty_receh" class="form-label">Quantity (Receh)</label>
+                                            <label for="qty_receh" class="form-label">Quantity (Partial)</label>
                                             <input type="number" class="form-control @error('qty_receh') is-invalid @enderror" id="qty_receh" name="qty_receh" value="{{ old('qty_receh') }}" min="1" step="1">
                                             @error('qty_receh')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -132,7 +132,7 @@
                                         <div class="mb-3">
                                             <label for="pic" class="form-label">PIC</label>
                                             <select class="form-select @error('pic') is-invalid @enderror" id="pic" name="pic" required>
-                                                <option value="" disabled selected>Select</option>
+                                                <option value="" disabled selected>Select PIC</option>
                                                 @foreach($picx as $pic)
                                                     <option value="{{ $pic }}" {{ old('pic') == $pic ? 'selected' : '' }}>
                                                         {{ $pic }}
@@ -173,7 +173,7 @@
             const data = await response.json();
             return data.qty_box;
         } catch (error) {
-            console.error('Gagal memproses data:', error);
+            console.error('Failed to process data:', error);
             return null;
         }
     }
@@ -203,7 +203,7 @@
         const checkResult = document.getElementById('checkResult');
 
             if (!model || !qtyInput) {
-                checkResult.innerHTML = '<span style="color: red;">Pilih Model terlebih dahulu</span>';
+                checkResult.innerHTML = '<span style="color: red;">Please select a model first</span>';
                 isQuantityChecked = false;
                 return;
             }
@@ -211,16 +211,16 @@
             const qtyBox = await fetchQtyBoxValue(model);
 
             if (!qtyBox) {
-                checkResult.innerHTML = '<span style="color: red;">Gagal mengambil data</span>';
+                checkResult.innerHTML = '<span style="color: red;">Failed to fetch data</span>';
                 isQuantityChecked = false;
                 return;
             }
 
             if (qtyInput % qtyBox === 0) {
-                checkResult.innerHTML = `<span style="color: green;">Quantity merupakan kelipatan ${qtyBox}.</span>`;
+                checkResult.innerHTML = `<span style="color: green;">Quantity is a multiple of ${qtyBox}.</span>`;
                 isQuantityChecked = true;
             } else {
-                checkResult.innerHTML = `<span style="color: red;">Quantity bukan kelipatan ${qtyBox}.</span>`;
+                checkResult.innerHTML = `<span style="color: red;">Quantity is not a multiple of ${qtyBox}.</span>`;
                 isQuantityChecked = false;
             }
         }
@@ -256,7 +256,7 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Tolong check dan sesuaikan quantity terlebih dahulu',
+                text: 'Please check and adjust the quantity first',
                 confirmButtonText: 'Ok'
             });
         }
@@ -329,7 +329,7 @@
         @if (session('error'))
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal',
+                title: 'Failed',
                 text: '{{ session('error') }}',
                 confirmButtonText: 'OK',
                 showConfirmButton: true,

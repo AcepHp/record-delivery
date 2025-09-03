@@ -2,7 +2,7 @@
 
 @section('header')
     <h2 class="text-3xl font-semibold text-gray-800">
-        {{ __('Form Input') }}
+        {{ __('Input Form') }}
     </h2>
 @endsection
 
@@ -44,10 +44,10 @@
                                         <table class="table">
                                             <thead class="table-header">
                                                 <tr>
-                                                    <th>Tanggal</th>
+                                                    <th>Date</th>
                                                     <th>Model</th>
                                                     <th>Part Number</th> 
-                                                    <th>Quantity Receh</th>
+                                                    <th>Partial Quantity</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -152,7 +152,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        displayNotification('Data berhasil disimpan!', 'success');
+                        displayNotification('Data saved successfully!', 'success');
                         playNotificationSound('success');
                         stopErrorSound(); 
                         inputElement.value = ""; 
@@ -163,11 +163,11 @@
                     }
                 })
                 .catch(error => {
-                    displayNotification('Terjadi kesalahan: ' + error.message, 'danger');
+                    displayNotification('An error occurred: ' + error.message, 'danger');
                     playNotificationSound('error');
                 });
             } else {
-                handleErrorPopup('Format data QR Code tidak valid.');
+                handleErrorPopup('QR Code data format is not valid.');
                 inputElement.value = "";
             }
         }
@@ -181,16 +181,16 @@
 
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal',
+                title: 'Failed',
                 html: `<p>${message}</p>
-                    <textarea id="noteInput" class="swal2-input" placeholder="Masukkan catatan" autocomplete="off" style="height: 100px; width: 100%; resize: none; padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;"></textarea>
-                    <input type="password" id="passwordInput" class="swal2-input" placeholder="Masukkan password" style="padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;">`,
+                    <textarea id="noteInput" class="swal2-input" placeholder="Please enter your note here" autocomplete="off" style="height: 100px; width: 100%; resize: none; padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;"></textarea>
+                    <input type="password" id="passwordInput" class="swal2-input" placeholder="Enter Your Password" style="padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;">`,
                 confirmButtonText: 'Submit',
                 preConfirm: () => {
                     const password = document.getElementById('passwordInput').value;
                     const note = document.getElementById('noteInput').value;
                     if (!note.trim()) {
-                        Swal.showValidationMessage('Catatan tidak boleh kosong.');
+                        Swal.showValidationMessage('Note cannot be empty.');
                         return false; 
                     }
                     return fetch("{{ route('verify.passwordrch') }}", {
@@ -234,7 +234,7 @@ const tglBlnThn = ('0' + now.getDate()).slice(-2) + '-' +
                                     stopErrorSound(); 
                                     return true;
                                 } else {
-                                    throw new Error('Gagal menyimpan log.');
+                                    throw new Error('Failed to saved log.');
                                 }
                             })
                             .catch(error => {
@@ -245,7 +245,7 @@ const tglBlnThn = ('0' + now.getDate()).slice(-2) + '-' +
                                 }
                             });
                         } else {
-                            throw new Error(data.message || 'Password salah.');
+                            throw new Error(data.message || 'Incorrect password.');
                         }
                     })
                     .catch(error => {
@@ -274,7 +274,7 @@ const tglBlnThn = ('0' + now.getDate()).slice(-2) + '-' +
         }
 
         if (localStorage.getItem('showPasswordError')) {
-            showPasswordProtectedPopup("Masukkan Password terlebih dahulu");
+            showPasswordProtectedPopup("Enter your password first.");
             if (!isErrorSoundPlaying) {
                 playNotificationSound('error');
                 isErrorSoundPlaying = true;
@@ -284,16 +284,16 @@ const tglBlnThn = ('0' + now.getDate()).slice(-2) + '-' +
         function showPasswordProtectedPopup(errorMessage) {
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal',
+                title: 'Failed',
                 html: `<p>${errorMessage}</p>
-                        <textarea id="noteInput" class="swal2-input" placeholder="Masukkan catatan" autocomplete="off" style="height: 100px; width: 100%; resize: none; padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;"></textarea>
-                        <input type="password" id="passwordInput" class="swal2-input" placeholder="Masukkan password" style="padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;">`,  
+                        <textarea id="noteInput" class="swal2-input" placeholder="Please enter your note here" autocomplete="off" style="height: 100px; width: 100%; resize: none; padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;"></textarea>
+                        <input type="password" id="passwordInput" class="swal2-input" placeholder="Enter Your Password" style="padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;">`,  
                 confirmButtonText: 'Submit',
                 preConfirm: () => {
                     const password = document.getElementById('passwordInput').value;
                     const note = document.getElementById('noteInput').value;
                     if (!note.trim()) {
-                        Swal.showValidationMessage('Catatan tidak boleh kosong.');
+                        Swal.showValidationMessage('Note cannot be empty.');
                         return false; 
                     }
                     return fetch("{{ route('verify.passwordrch') }}", {
@@ -338,7 +338,7 @@ const tglBlnThn = ('0' + now.getDate()).slice(-2) + '-' +
                                     stopErrorSound(); 
                                     return true;
                                 } else {
-                                    throw new Error('Gagal menyimpan log.');
+                                    throw new Error('Failed to saved log.');
                                 }
                             })
                             .catch(error => {
@@ -349,7 +349,7 @@ const tglBlnThn = ('0' + now.getDate()).slice(-2) + '-' +
                                 }
                             });
                         } else {
-                            throw new Error(data.message || 'Password salah.');
+                            throw new Error(data.message || 'Incorrect password.');
                         }
                     })
                     .catch(error => {

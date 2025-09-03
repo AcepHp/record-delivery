@@ -2,7 +2,7 @@
 
 @section('header')
     <h2 class="text-3xl font-semibold text-gray-800">
-        {{ __('Form Input') }}
+        {{ __('Input Form') }}
     </h2>
 @endsection
 
@@ -14,16 +14,17 @@
             <table class="table">
                 <thead class="table-header">
                     <tr>
-                        <th>Tanggal Preparation</th>
+                        <th>Preparation Date</th>
                         <th>Model</th>
                         <th>Part Number</th> 
                         <th>Lot Number</th> 
                         <th>Plant Destination</th>
-                        <th>Tipe Delivery</th> 
+                        <th>Delivery Type</th> 
                         <th>PIC</th>
-                        <th>Quantity Receh</th>
-                        <th>Quantity Delivery</th>
+                        <th>Partial Quantity</th>
+                        <th>Delivery Quantity</th>
                     </tr>
+
                 </thead>
                 <tbody>
                     <tr>
@@ -76,7 +77,7 @@
                             <table class="table table-hover">
                                 <thead class="table-header">
                                     <tr>
-                                        <th>No Transaksi</th>
+                                        <th>Transaksi Number</th>
                                         <th>Model</th>
                                         <th>Qty</th>
                                     </tr>
@@ -90,7 +91,7 @@
                             <table class="table table-hover">
                                 <thead class="table-header">
                                     <tr>
-                                        <th>No Transaksi</th>
+                                        <th>Transaksi Number</th>
                                         <th>Max Model</th>
                                         <th>Qty</th>
                                     </tr>
@@ -110,7 +111,7 @@
                                 <thead class="table-header">
                                     <tr>
                                         <th>No</th>
-                                        <th>Tanggal</th>
+                                        <th>Date</th>
                                         <th>Part Number</th>
                                         <th>Serial Number</th>
                                         <th>Qty</th>
@@ -185,7 +186,7 @@ $(document).ready(function () {
             document.getElementById('qrcode').focus();
         })
         .catch(error => {
-            handleErrorPopup('Terjadi kesalahan saat memproses data.');
+            handleErrorPopup('An error occurred while processing the data.');
             document.getElementById('qrcode').value = '';
             document.getElementById('qrcode').focus();
         });
@@ -265,20 +266,20 @@ $(document).ready(function () {
             errorSoundLoop = true;
         }
 
-        if (message === 'Serial number sudah ada dalam database' || message === 'Serial number tidak sesuai' || message === 'Tidak dapat menginput data melebihi quantity.') {
+        if (message === 'Serial number already exists in the database' || message === 'Serial number does not match' || message === 'Cannot input data exceeding the quantity.') {
             localStorage.setItem('showPasswordError', 'true');
             showPasswordProtectedPopup(message);
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal',
+                title: 'Failed',
                 html: `<p>${message}</p>
-                    <textarea id="noteInput" class="swal2-input" placeholder="Masukkan catatan" style="height: 100px; width: 100%; resize: none; padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;"></textarea>`,
+                    <textarea id="noteInput" class="swal2-input" placeholder="Please enter your note here" style="height: 100px; width: 100%; resize: none; padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;"></textarea>`,
                 confirmButtonText: 'OK',
                 preConfirm: () => {
                     const note = document.getElementById('noteInput').value.trim();
                     if (!note) {
-                        Swal.showValidationMessage('Catatan tidak boleh kosong.');
+                        Swal.showValidationMessage('Note cannot be empty.');
                         return false;
                     }
 
@@ -308,7 +309,7 @@ const tglBlnThn = now.getFullYear() + '-' +
                     .then(response => response.json())
                     .then(data => {
                         if (!data.success) {
-                            Swal.showValidationMessage('Gagal menyimpan log.');
+                            Swal.showValidationMessage('Failed to saved log.');
                             return false;
                         }
                         return true;
@@ -327,7 +328,7 @@ const tglBlnThn = now.getFullYear() + '-' +
     }
 
     if (localStorage.getItem('showPasswordError')) {
-        showPasswordProtectedPopup("Masukkan Password terlebih dahulu");
+        showPasswordProtectedPopup("Enter your password first.");
         if (!errorSoundLoop) {
             playNotificationSound('error');
             errorSoundLoop = true;
@@ -337,16 +338,16 @@ const tglBlnThn = now.getFullYear() + '-' +
     function showPasswordProtectedPopup(errorMessage) {
         Swal.fire({
             icon: 'error',
-            title: 'Gagal',
+            title: 'Failed',
             html: `<p>${errorMessage}</p>
-                    <textarea id="noteInput" class="swal2-input" placeholder="Masukkan catatan" autocomplete="off" style="height: 100px; width: 100%; resize: none; padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;"></textarea>
-                    <input type="password" id="passwordInput" class="swal2-input" placeholder="Masukkan password" style="padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;">`,  
+                    <textarea id="noteInput" class="swal2-input" placeholder="Please enter your note here" autocomplete="off" style="height: 100px; width: 100%; resize: none; padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;"></textarea>
+                    <input type="password" id="passwordInput" class="swal2-input" placeholder="Enter Your Password" style="padding: 10px; font-size: 1rem; border-radius: 10px; border: 1px solid #dcdcdc;">`,  
             confirmButtonText: 'Submit',
             preConfirm: () => {
                 const password = document.getElementById('passwordInput').value;
                 const note = document.getElementById('noteInput').value;
                 if (!note.trim()) {
-                    Swal.showValidationMessage('Catatan tidak boleh kosong.');
+                    Swal.showValidationMessage('Note cannot be empty.');
                     return false; 
                 }
                 return fetch("{{ route('verify.passwordrch') }}", {
@@ -389,7 +390,7 @@ const tglBlnThn = now.getFullYear() + '-' +
                                 stopErrorSound(); 
                                 return true;
                             } else {
-                                throw new Error('Gagal menyimpan log.');
+                                throw new Error('Failed to saved log.');
                             }
                         })
                         .catch(error => {
@@ -400,7 +401,7 @@ const tglBlnThn = now.getFullYear() + '-' +
                             }
                         });
                     } else {
-                        throw new Error(data.message || 'Password salah.');
+                        throw new Error(data.message || 'Incorrect password.');
                     }
                 })
                 .catch(error => {
@@ -477,7 +478,7 @@ const tglBlnThn = now.getFullYear() + '-' +
             console.error('Error:', error);
             Swal.fire({
                 title: 'Error!',
-                text: 'Gagal membandingkan data.',
+                text: 'Failed to compare data.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
