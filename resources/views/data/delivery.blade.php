@@ -433,13 +433,20 @@ const tglBlnThn = ('0' + now.getDate()).slice(-2) + '-' +
                 .then(data => {
                     const totalQty = data.total_qty;
                     const qtyColumn = document.querySelector('td.text-danger, td.text-success');
+
                     if (qtyColumn) {
-                        qtyColumn.textContent = totalQty; 
-                        qtyColumn.className = totalQty !== "{{ $totalQtyValueRcrd }}" ? 'text-danger' : 'text-success'; 
+                        qtyColumn.textContent = totalQty;
+
+                        if (totalQty != "{{ $totalQtyValueRcrd }}") {
+                            qtyColumn.className = 'text-danger';
+                        } else {
+                            qtyColumn.className = 'text-success animate-flash';
+                        }
                     }
                 })
                 .catch(error => console.error('Error fetching total quantity:', error));
         }
+
 
         function displayNotification(message, type) {
             notificationElement.textContent = message;
@@ -654,17 +661,29 @@ const tglBlnThn = ('0' + now.getDate()).slice(-2) + '-' +
         background-color: #2088ef;
     }
 
+    .text-success {
+        background-color: lightgreen !important;
+        color: black !important;
+        font-weight: bold;
+    }
+
     .text-danger {
         background-color: lightcoral !important;
         color: black !important;
         font-weight: bold;
     }
 
-    .text-success {
-        background-color: lightgreen !important;
-        color: black !important;
-        font-weight: bold;
+    /* efek highlight saat berubah */
+    @keyframes flashGreen {
+        0% { background-color: #28a745; color: #fff; }
+        50% { background-color: lightgreen; color: black; }
+        100% { background-color: lightgreen; color: black; }
     }
+
+    .animate-flash {
+        animation: flashGreen 1s ease-in-out;
+    }
+
 
 </style>
 
