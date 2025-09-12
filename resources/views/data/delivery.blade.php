@@ -18,6 +18,7 @@
                         <th>Model</th>
                         <th>Part Number</th> 
                         <th>Plant Destination</th>
+                        <th>Delivery Instruction</th>
                         <th>Delivery Type</th> 
                         <th>PIC</th>
                         <th>Quantity Record</th>
@@ -38,6 +39,7 @@
                             @endif
                         </td>
                         <td>{{ session('plant_dest') }}</td>
+                        <td>{{ session('delivery_instruction') }}</td>
                         <td>{{ session('tipe_delv') }}</td>
                         <td>{{ session('pic') }}</td>
                         <td>{{ $totalQtyValueRcrd }}</td> 
