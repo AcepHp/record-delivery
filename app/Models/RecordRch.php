@@ -21,7 +21,8 @@ class RecordRch extends Model
         'tipe_delv', 
         'pic',
         'qty_receh',
-        'flag'
+        'flag',
+        'delivery_instruction'
     ];
 
     public $timestamps = false; 

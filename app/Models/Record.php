@@ -20,7 +20,8 @@ class Record extends Model
         'tipe_delv', 
         'pic',
         'qty',
-        'flag'
+        'flag',
+        'delivery_instruction'
     ];
 
     public $timestamps = false; 

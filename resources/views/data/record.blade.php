@@ -67,6 +67,20 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
+                                            <label for="delivery_instruction" class="form-label">Delivery Instruction</label>
+                                            <input 
+                                                type="text" 
+                                                class="form-control @error('delivery_instruction') is-invalid @enderror" 
+                                                id="delivery_instruction" 
+                                                name="delivery_instruction" 
+                                                value="{{ old('delivery_instruction') }}" 
+                                                placeholder="Enter Delivery Instruction" 
+                                                required>
+                                            @error('delivery_instruction')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-3">
                                             <label for="tipe_delv" class="form-label">Delivery Type</label>
                                             <select class="form-select @error('tipe_delv') is-invalid @enderror" id="tipe_delv" name="tipe_delv" required>
                                                 <option value="" disabled selected>Select Delivery Type</option>
