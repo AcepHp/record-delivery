@@ -48,6 +48,7 @@
                                     <th>Model</th>
                                     <th>Part Name</th>
                                     <th>Part Number</th>
+                                    <th>Delivery Instruction</th>
                                     <th>Delivery Type</th>
                                     <th>Plant Destination</th>
                                     <th>Quantity</th>
@@ -140,6 +141,7 @@
                { data: 'model', name: 'model' },
                { data: 'part_name', name: 'part_name' },
                { data: 'part_number', name: 'part_number' },
+               { data: 'delivery_instruction', name: 'delivery_instruction' },
                { data: 'tipe_delv', name: 'tipe_delv' },
                { data: 'plant_dest', name: 'plant_dest' },
                { data: 'qty', name: 'qty' },

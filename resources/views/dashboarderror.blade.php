@@ -42,14 +42,14 @@
                         <table id="error-table" class="table table-hover table-bordered table-responsive">
                             <thead class="table-header">
                                 <tr>
-                                    <th>Transaction Number</th>
+                                    <th>Transaction No</th>
                                     <th>Date</th>
                                     <th>Model</th>
                                     <th>Part Number</th>
                                     <th>Lot Number</th>
                                     <th>Delivery Type</th>
                                     <th>Plant Destination</th>
-                                    <th>Quantity</th>
+                                    <th>Note</th>
                                 </tr>
                             </thead>
                         </table>
@@ -70,10 +70,10 @@
                                     <th>Date</th>
                                     <th>Model</th>
                                     <th>Part Number</th>
-                                    <th>Serial Number</th>
                                     <th>Lot Number</th>
+                                    <th>Delivery Type</th>
                                     <th>Plant Destination</th>
-                                    <th>Quantity</th>
+                                    <th>Note</th>
                                 </tr>
                             </thead>
                         </table>

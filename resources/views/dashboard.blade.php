@@ -47,6 +47,7 @@
                                     <th>Model</th>
                                     <th>Part Name</th>
                                     <th>Part Number</th>
+                                    <th>Delivery Instruction</th>
                                     <th>Delivery Type</th>
                                     <th>Plant Destination</th>
                                     <th>Quantity</th>
@@ -134,29 +135,30 @@
                type: 'GET'
            },
            columns: [
-               { data: 'no_transaksi', name: 'no_transaksi' },
-               { data: 'tgl_bln_thn', name: 'tgl_bln_thn' },
-               { data: 'tgl_bln_thn_dlv', name: 'tgl_bln_thn_dlv' },
-               { data: 'model', name: 'model' },
-               { data: 'part_name', name: 'part_name' },
-               { data: 'part_number', name: 'part_number' },
-               { data: 'tipe_delv', name: 'tipe_delv' },
-               { data: 'plant_dest', name: 'plant_dest' },
-               { data: 'qty', name: 'qty' },
-               { 
-                   data: 'status', 
-                   name: 'status',
-                   render: function(data, type, row) {
-                        if (data === 'Proses') {
-                            return '<span style="color: red; font-weight: bold;">In Progress</span>';
-                        } else if (data === 'Berhasil') {
-                            return '<span style="color: green; font-weight: bold;">Completed</span>';
-                        }
-                        return data;
+            { data: 'no_transaksi', name: 'no_transaksi' },
+            { data: 'tgl_bln_thn', name: 'tgl_bln_thn' },
+            { data: 'tgl_bln_thn_dlv', name: 'tgl_bln_thn_dlv' },
+            { data: 'model', name: 'model' },
+            { data: 'part_name', name: 'part_name' },
+            { data: 'part_number', name: 'part_number' },
+            { data: 'delivery_instruction', name: 'delivery_instruction' }, // ✅ tambahan
+            { data: 'tipe_delv', name: 'tipe_delv' },
+            { data: 'plant_dest', name: 'plant_dest' },
+            { data: 'qty', name: 'qty' },
+            {
+                data: 'status', 
+                name: 'status',
+                render: function(data, type, row) {
+                    if (data === 'Proses') {
+                        return '<span style="color: red; font-weight: bold;">In Progress</span>';
+                    } else if (data === 'Berhasil') {
+                        return '<span style="color: green; font-weight: bold;">Completed</span>';
                     }
+                    return data;
+                }
+            }
+        ],
 
-               }
-           ],
            paging: true,
            searching: true,
            ordering: true,

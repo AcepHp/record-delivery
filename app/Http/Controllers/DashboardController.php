@@ -99,6 +99,7 @@ class DashboardController extends Controller
                 'delivery.lot_number', 
                 'record.tipe_delv', 
                 'record.plant_dest', 
+                'record.delivery_instruction', // ✅ tambahan
                 'delivery.qty'
             )
             ->distinct()
@@ -128,8 +129,10 @@ class DashboardController extends Controller
                 'delivery_receh.lot_number', 
                 'record_receh.tipe_delv', 
                 'record_receh.plant_dest', 
+                'record_receh.delivery_instruction', // ✅ tambahan
                 'delivery_receh.qty'
             )
+
             ->distinct()
             ->where('delivery_receh.flag', 0)
             ->where('record_receh.flag', 0)
@@ -156,9 +159,11 @@ class DashboardController extends Controller
                 'delivery.part_number',
                 'record.tipe_delv',
                 'record.plant_dest',
+                'record.delivery_instruction', // ✅ tambahan
                 'record.qty',
                 DB::raw("CASE WHEN record.flag = 1 THEN 'Proses' ELSE 'Berhasil' END AS status")
             )
+
             ->distinct()
             ->orderBy('record.tgl_bln_thn', 'desc')
             ->get();
@@ -183,9 +188,11 @@ class DashboardController extends Controller
                 'delivery_receh.part_number',
                 'record_receh.tipe_delv',
                 'record_receh.plant_dest',
+                'record_receh.delivery_instruction', // ✅ tambahan
                 'record_receh.qty_receh',
                 DB::raw("CASE WHEN record_receh.flag = 1 THEN 'Proses' ELSE 'Berhasil' END AS status")
             )
+
             ->distinct()
             ->orderBy('record_receh.tgl_bln_thn', 'desc')
             ->get();
