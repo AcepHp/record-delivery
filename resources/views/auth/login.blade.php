@@ -45,16 +45,12 @@
                 <div class="card">
                     <div class="card-body p-4">
                         <div class="login-logo text-center mb-4">
-                            <img src="{{ asset('B/assets/images/logo-avp.png') }}" alt="AVI Logo" class="img-fluid" style="max-width: 50%;">
+                            <img src="{{ asset('B/assets/images/AVI.png') }}" alt="AVI Logo" class="img-fluid" style="max-width: 50%;">
                         </div>
                         <div class="p-2 mt-4">
-                            @if ($errors->any())
+                            @if ($errors->has('loginError'))
                                 <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
+                                    {{ $errors->first('loginError') }}
                                 </div>
                             @endif
                             <form action="{{ route('login') }}" method="post">

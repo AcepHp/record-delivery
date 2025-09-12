@@ -38,8 +38,8 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended($user->isAdmin() ? 'dashboardadmin' : 'dashboard');
         }
     
-        throw ValidationException::withMessages([
-            'name' => 'Username or Password incorrect',
+        return back()->withErrors([
+            'loginError' => 'Incorrect username or password, please try again.',
         ]);
     }
     
