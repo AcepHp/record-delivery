@@ -50,15 +50,13 @@ class RecordController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-        'tgl_bln_thn'       => 'required|date',
-        'tgl_bln_thn_dlv'   => 'required|date',
-        'model'             => 'required|string',
-        'qty_type'          => 'required|string',
-        'qty'               => 'nullable|integer|required_if:qty_type,full',
-        'qty_receh'         => 'nullable|integer|required_if:qty_type,receh',
-        'delivery_instruction' => 'required|string|max:255', // ✅ tambahan
-    ]);
-
+            'tgl_bln_thn'       => 'required|date',
+            'tgl_bln_thn_dlv'   => 'required|date',
+            'model'             => 'required|string',
+            'qty_type'          => 'required|string',
+            'qty'               => 'nullable|integer|required_if:qty_type,full',
+            'qty_receh'         => 'nullable|integer|required_if:qty_type,receh',
+        ]);
 
         return DB::transaction(function () use ($request, $validatedData) {
 
@@ -100,7 +98,7 @@ class RecordController extends Controller
             if ($validatedData['qty_type'] === 'full') {
                 if (!$request->has('qty') || empty($validatedData['qty'])) {
                     return redirect()->back()
-                        ->withErrors(['qty' => 'Full Quantity is required.'])
+                        ->withErrors(['qty' => 'Full Quantity must be filled.'])
                         ->withInput();
                 }
         
@@ -110,14 +108,13 @@ class RecordController extends Controller
                     'tgl_bln_thn_dlv'   => $validatedData['tgl_bln_thn_dlv'],
                     'model'             => $validatedData['model'],
                     'plant_dest'        => $request->input('plant_dest'),
-                    'delivery_instruction' => $request->input('delivery_instruction'), // ✅ tambahan
                     'tipe_delv'         => $request->input('tipe_delv'),
                     'pic'               => $request->input('pic'),
                     'flag'              => 1,
                     'qty'               => $validatedData['qty'],
                     'qty_receh'         => 0,
+                    'delivery_instruction' => $request->input('delivery_instruction'),
                 ]);
-
 
                 $partNumbers = M_Model_Part::where('model', $validatedData['model'])
                                     ->distinct()
@@ -126,27 +123,26 @@ class RecordController extends Controller
         
                 if ($record->save()) {
                     $request->session()->put([
-                        'no_transaksi'          => $noTransaksi,
-                        'tgl_bln_thn'           => $validatedData['tgl_bln_thn'],
-                        'tgl_bln_thn_dlv'       => $validatedData['tgl_bln_thn_dlv'],
-                        'plant_dest'            => $request->input('plant_dest'),
-                        'delivery_instruction'  => $request->input('delivery_instruction'), // ✅ tambahan
-                        'tipe_delv'             => $request->input('tipe_delv'),
-                        'model'                 => $validatedData['model'],
-                        'qty'                   => $validatedData['qty'],
-                        'pic'                   => $request->input('pic'),
-                        'part_numbers'          => $partNumbers, 
+                        'no_transaksi'      => $noTransaksi,
+                        'tgl_bln_thn'       => $validatedData['tgl_bln_thn'],
+                        'tgl_bln_thn_dlv'   => $validatedData['tgl_bln_thn_dlv'],
+                        'plant_dest'        => $request->input('plant_dest'),
+                        'tipe_delv'         => $request->input('tipe_delv'),
+                        'model'             => $validatedData['model'],
+                        'qty'               => $validatedData['qty'],
+                        'pic'               => $request->input('pic'),
+                        'part_numbers'      => $partNumbers, 
+                        'delivery_instruction' => $request->input('delivery_instruction'),
                     ]);
-
             
                     return redirect()->route('delivery.create')
-                        ->with('success', 'Full Quantity data has been saved successfully.');
+                        ->with('success', 'Full Quantity data has been successfully saved.');
                 }
             }
             elseif ($validatedData['qty_type'] === 'receh') {
                 if (!$request->has('qty_receh') || empty($validatedData['qty_receh'])) {
                     return redirect()->back()
-                        ->withErrors(['qty_receh' => 'Partial Quantity is required.'])
+                        ->withErrors(['qty_receh' => 'Partial Quantity must be filled.'])
                         ->withInput();
                 }
         
@@ -156,14 +152,13 @@ class RecordController extends Controller
                     'tgl_bln_thn_dlv'   => $validatedData['tgl_bln_thn_dlv'],
                     'model'             => $validatedData['model'],
                     'plant_dest'        => $request->input('plant_dest'),
-                    'delivery_instruction' => $request->input('delivery_instruction'), // ✅ tambahan
                     'tipe_delv'         => $request->input('tipe_delv'),
                     'pic'               => $request->input('pic'),
                     'flag'              => 1,
                     'qty_receh'         => $validatedData['qty_receh'],
                     'qty'               => 0,
+                    'delivery_instruction' => $request->input('delivery_instruction'),
                 ]);
-
 
                 $partNumbers = M_Model_Part::where('model', $validatedData['model'])
                                     ->distinct()
@@ -172,21 +167,22 @@ class RecordController extends Controller
         
                 if ($recordRch->save()) {
                     $request->session()->put([
-                        'no_transaksi'      => $noTransaksi,
+                        'no_transaksi'      => $noTransaksiRch,
                         'tgl_bln_thn'       => $validatedData['tgl_bln_thn'],
                         'tgl_bln_thn_dlv'   => $validatedData['tgl_bln_thn_dlv'],
-                        'plant_dest'        => $request->input('plant_dest'),
-                        'delivery_instruction' => $request->input('delivery_instruction'), // ✅ tambahan
-                        'tipe_delv'         => $request->input('tipe_delv'),
                         'model'             => $validatedData['model'],
-                        'qty'               => $validatedData['qty'],
+                        'plant_dest'        => $request->input('plant_dest'),
+                        'tipe_delv'         => $request->input('tipe_delv'),
                         'pic'               => $request->input('pic'),
+                        'flag'              => 1,
+                        'qty_receh'         => $validatedData['qty_receh'],
+                        'qty'               => 0,
                         'part_numbers'      => $partNumbers,
+                        'delivery_instruction' => $request->input('delivery_instruction'), 
                     ]);
 
-
                     return redirect()->route('deliveryrch.create')
-                        ->with('success', 'Partial Quantity data has been saved successfully.');
+                        ->with('success', 'Partial Quantity data has been successfully saved.');
                 }
             }
         
